@@ -13,14 +13,14 @@ import java.net.*;
 
 public class Server {
     public static void main(String args[]) {
-		int port = 1112; 
-		Server server = new Server(port); 
+		int port = 1112; //alapértelmezett port
+		Server server = new Server(port);  //server objektum készítése
 		server.startServer();
     }
 
-    ServerSocket serverSock = null;
-    Socket clientSocket = null;
-    int numOfConnections = 0;
+    ServerSocket serverSock = null; //szerveroldali végpont
+    Socket clientSocket = null;  //kliens oldali végpont
+    int numOfConnections = 0;   
 	
     int port;
 	
@@ -45,10 +45,10 @@ public class Server {
 	
 		while (true) {
 			try {
-				clientSocket = serverSock.accept();
+				clientSocket = serverSock.accept(); //kapcsolat elfogadása
 				numOfConnections ++;
 				ServerConnection oneconnection = new ServerConnection(clientSocket, numOfConnections, this);
-				new Thread(oneconnection).start();
+				new Thread(oneconnection).start();  //új szál
 			}   
 			catch (IOException e) {
 				System.out.println(e);
@@ -92,9 +92,9 @@ class ServerConnection implements Runnable {
 					serverStop = true;
 					break;
 				}
-				if ( line.equals("quit")){
+				if ( line.equals("QUIT")){
 					connectionCounter--;
-					System.out.println("Kapcsolatok szama: " + connectionCounter);
+					System.out.println("Number of connections: " + connectionCounter);
 					break;
 				}	
 								

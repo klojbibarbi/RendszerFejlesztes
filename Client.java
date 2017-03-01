@@ -4,33 +4,31 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author Neferet
- */
+
 import java.io.*;
 import java.net.*;
 
 public class Client {
     public static void main(String[] args) {
 	
-                DataOutputStream outputstr = null;
-        
-		Socket clientSocket = null;
-		
-		BufferedReader input = null;
+        DataOutputStream outputstr = null;  //tartalom kiiratásához
+		Socket clientSocket = null; //végpont létérehozása
+		BufferedReader input = null; //beolvasáshoz
 	
     try {
-		clientSocket = new Socket("localhost", 1112);
-		outputstr = new DataOutputStream(clientSocket.getOutputStream());
-		input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		clientSocket = new Socket("localhost", 1112); //új végpont létrehozása
+		outputstr = new DataOutputStream(clientSocket.getOutputStream()); //tartalom csatorna
+		input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));  //beolvasási csatorna
     } catch (UnknownHostException e) {
-            System.err.println("***Localhost error***");
+            System.err.println("***Localhost error***"); 
     } catch (IOException e) {
             System.err.println("***Cannot connect***");
     }
 	
-
+		if (clientSocket==null || outputstr ==null || input == null){ //ha nincs végpont vagy tartalom vagy bemenet
+			System.out.println("***Error occured***" );
+			return;
+		}
 
 	try {
 	    while (true) {
@@ -38,16 +36,16 @@ public class Client {
                         System.out.println("***STOP: Makes server to stop***");
                         System.out.println("***EXIT: Client leaves***");
                         System.out.print("Message: ");
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //beolvasáshoz
 			String keyboardInput = br.readLine();
-			outputstr.writeBytes( keyboardInput + "\n" );
+			outputstr.writeBytes( keyboardInput + "\n" ); //kiiratás
 
-			if ( keyboardInput.equals("EXIT") || keyboardInput.equals("STOP")) {
+			if ( keyboardInput.equals("EXIT") || keyboardInput.equals("STOP")) { 
 				break;
 			}
 	    }
 	    
-	    outputstr.close();
+	    outputstr.close(); 
 	    input.close();
 	    clientSocket.close();  
 	} catch (UnknownHostException e) {
