@@ -20,9 +20,9 @@ public class Client {
 		outputstr = new DataOutputStream(clientSocket.getOutputStream()); //tartalom csatorna
 		input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));  //beolvasási csatorna
     } catch (UnknownHostException e) {
-            System.err.println("***Localhost error***"); 
+            System.out.println("***Localhost error***"); 
     } catch (IOException e) {
-            System.err.println("***Cannot connect***");
+            System.out.println("***Cannot connect***");
     }
 	
 		if (clientSocket==null || outputstr ==null || input == null){ //ha nincs végpont vagy tartalom vagy bemenet
@@ -49,9 +49,9 @@ public class Client {
 	    input.close();
 	    clientSocket.close();  
 	} catch (UnknownHostException e) {
-	    System.err.println("Unknown host: " + e);
+	    System.out.println("Unknown host: " + e);
 	} catch (IOException e) {
-	    System.err.println("IOException:  " + e);
+	    System.out.println("IOException:  " + e);
 	}
     }           
 }
